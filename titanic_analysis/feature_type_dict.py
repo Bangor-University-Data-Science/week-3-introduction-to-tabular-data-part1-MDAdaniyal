@@ -1,21 +1,13 @@
-def create_feature_type_dict(df):
-    """
-    Classifies features into numerical (continuous or discrete) and categorical (nominal or ordinal).
-    
-    Args:
-        df (pd.DataFrame): The Titanic dataset as a DataFrame.
-    
-    Returns:
-        dict: A dictionary classifying features into numerical and categorical types.
-    """
-    feature_types = {
-        'numerical': {
-            'continuous': [],  # Fill with continuous numerical features
-            'discrete': []  # Fill with discrete numerical features
-        },
-        'categorical': {
-            'nominal': [],  # Fill with nominal categorical features
-            'ordinal': []  # Fill with ordinal categorical features
-        }
+from titanic_analysis.feature_type_dict import create_feature_type_dict
+
+def test_create_feature_type_dict():
+    # Mock a DataFrame
+    mock_df = {
+        'Age': [22, 38, 26, 35],
+        'Sex': ['male', 'female', 'female', 'male'],
+        'Survived': [0, 1, 1, 0]
     }
-    return feature_types
+    feature_types = create_feature_type_dict(mock_df)
+    
+    assert 'numerical' in feature_types, "The dictionary should have a 'numerical' key"
+    assert 'categorical' in feature_types, "The dictionary should have a 'categorical' key"

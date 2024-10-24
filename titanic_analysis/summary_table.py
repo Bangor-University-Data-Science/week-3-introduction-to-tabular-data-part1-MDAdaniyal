@@ -1,3 +1,4 @@
+import pandas as pd
 def create_summary_table(df):
     """
     Creates a summary DataFrame with feature name, data type, number of unique values, and if it has missing values.
@@ -8,4 +9,12 @@ def create_summary_table(df):
     Returns:
         pd.DataFrame: A summary DataFrame.
     """
-    pass  # Implement the logic here
+    titanic_df = pd.read_csv('titanic.csv')
+
+    summary = pd.DataFrame({
+    'Feature Name': titanic_df.columns,
+    'Data Type': titanic_df.dtypes.values,
+    'Number of Unique Values': titanic_df.nunique().values,
+    'Has Missing Values?': titanic_df.isnull().any().values
+     })
+    return summary
