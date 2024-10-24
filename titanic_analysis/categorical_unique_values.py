@@ -1,14 +1,17 @@
-from titanic_analysis.categorical_unique_values import display_unique_values
-
-def test_display_unique_values():
-    # Mock a DataFrame
-    mock_df = {
-        'Sex': ['male', 'female', 'female', 'male'],
-        'Embarked': ['S', 'C', 'S', 'Q']
-    }
-    categorical_features = ['Sex', 'Embarked']
+import pandas as pd
+def display_unique_values(df, categorical_features):
+    """
+    Displays unique values for each categorical feature in the DataFrame.
     
-    unique_values = display_unique_values(mock_df, categorical_features)
+    Args:
+        df (pd.DataFrame): The Titanic dataset as a DataFrame.
+        categorical_features (list): List of categorical feature names.
     
-    assert isinstance(unique_values, dict), "The result should be a dictionary"
-    assert 'Sex' in unique_values and 'Embarked' in unique_values, "Both categorical features should be in the result"
+    Returns:
+        dict: A dictionary where keys are feature names and values are the unique values.
+    """
+    feat_list = df.select_dtypes(include=['object']).columns.to_list()
+    feature_unique_values = {}
+    for ft in feat_list:
+        feature_unique_values[ft] = df[ft].unique()
+    return feature_unique_values
